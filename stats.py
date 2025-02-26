@@ -13,8 +13,3 @@ def count_chars(content):
     return count_map
 
 
-def select_char_count(line):
-    p1 = line.find('found') + len('found ')
-    p2 = line.find(' times')
-    number = line[p1:p2]
-    return int(number)

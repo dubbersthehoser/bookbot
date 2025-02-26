@@ -1,9 +1,17 @@
+import sys
+
 from stats import count_words
 from stats import count_chars
-from stats import select_char_count
+
+def select_char_count(line):
+    number = line[3:]
+    return int(number)
 
 def main():
-    path_to_file = 'books/frankenstein.txt'
+    if len(sys.argv) == 1:
+        sys.exit(1)
+
+    path_to_file = sys.argv[1]
 
     with open(path_to_file) as f:
         file_contents = f.read()
@@ -13,20 +21,25 @@ def main():
 
     char_count_lines = []
     for k, v in char_count.items():
-        line = f"the '{k}' character was found {v} times"
+        line = f"{k}: {v}"
         char_count_lines.append(line)
 
     char_count_lines.sort(key=select_char_count, reverse=True)
     
     output_lines = [
-        f"--- Begin report of {path_to_file} ---",
-        f"{word_count} words found in the document",
-        "",
-        "",
+        f"============ BOOKBOT ============"
+        f"Analyzing book found at {path_to_file}...",
+        "----------- Word Count ----------",
+        f"Found {word_count} total words",
+        "--------- Character Count -------",
         *char_count_lines,
-        f"--- End report ---"
+        f"============= END ==============="
         ]
 
     print('\n'.join(output_lines))
 
-main()
+
+
+
+if __name__ == '__main__':
+    main()
